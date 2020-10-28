@@ -1,7 +1,7 @@
-const { table } = require("console");
+
 const fs = require("fs");
 const path = require("path");
-const { getMaxListeners } = require("process");
+
 
 const contactsPath = path.join(__dirname, "./db/contacts.json")
 
