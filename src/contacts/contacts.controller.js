@@ -3,7 +3,7 @@ const {
   listContacts,
   getContactById,
   delContact,
-  updateOneContact
+  updateOneContact,
 } = require('./contacts.model');
 
 exports.createContact = async (req, res, next) => {

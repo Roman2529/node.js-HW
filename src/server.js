@@ -31,7 +31,7 @@ exports.CrudServer = class {
   }
 
   initRoutes() {
-    this.app.use("/contacts", contactsRouter);
+    this.app.use('/contacts', contactsRouter);
   }
 
   initErrorHandling() {
@@ -42,7 +42,7 @@ exports.CrudServer = class {
   }
 
   startListening() {
-    const { PORT }  = process.env;
+    const { PORT } = process.env;
     this.app.listen(PORT, () => {
       console.log('Server started listening on port', PORT);
     });

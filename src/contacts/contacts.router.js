@@ -4,7 +4,7 @@ const {
   getMyContacts,
   getById,
   removeContact,
-  updateContact
+  updateContact,
 } = require('./contacts.controller');
 const { validate } = require('../helpers/validate.middleware');
 const { createContactSchema } = require('./contacts.schemes');

@@ -26,12 +26,12 @@ async function addContact(contactParams) {
     ...contactParams,
     id: uuid.v4(),
   };
-    updateList.push(newContact);
-    await fsp.writeFile(contactsPath, JSON.stringify(updateList), err => {
-      if (err) {
-        throw err;
-      }
-    });
+  updateList.push(newContact);
+  await fsp.writeFile(contactsPath, JSON.stringify(updateList), err => {
+    if (err) {
+      throw err;
+    }
+  });
   return updateList;
 }
 
@@ -54,33 +54,29 @@ async function delContact(contactId) {
 }
 
 async function updateOneContact(contactId, contactParams) {
-    const contactsList = await fsp.readFile(contactsPath, 'utf-8');
-    const updateList = await JSON.parse(contactsList);
-    const contactIndex = updateList.findIndex(
-      el => el.id === Number(contactId),
-    );
-    if (contactIndex === -1) {
-      return;
-    } else {
-        updateList[contactIndex] = await {
-          ...updateList[contactIndex],
-          ...contactParams
-        };
-         await fsp.writeFile(contactsPath, JSON.stringify(updateList), err => {
-           if (err) {
-             throw err;
-           }
-         });
-        return updateList[contactIndex];
-    }
+  const contactsList = await fsp.readFile(contactsPath, 'utf-8');
+  const updateList = await JSON.parse(contactsList);
+  const contactIndex = updateList.findIndex(el => el.id === Number(contactId));
+  if (contactIndex === -1) {
+    return;
+  } else {
+    updateList[contactIndex] = await {
+      ...updateList[contactIndex],
+      ...contactParams,
+    };
+    await fsp.writeFile(contactsPath, JSON.stringify(updateList), err => {
+      if (err) {
+        throw err;
+      }
+    });
+    return updateList[contactIndex];
+  }
 }
-
-
 
 module.exports = {
   listContacts,
   addContact,
   getContactById,
   delContact,
-  updateOneContact
+  updateOneContact,
 };
