@@ -5,15 +5,16 @@ const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
 const { contactsRouter } = require('./contacts/contacts.router');
+const mongoose = require('mongoose');
 
 exports.CrudServer = class {
   constructor() {
     this.app = null;
   }
 
-  start() {
+  async start() {
     this.initServer();
-    // this.initDatabase();
+    await this.initDatabase();
     this.initMiddlewares();
     this.initRoutes();
     this.initErrorHandling();
@@ -22,6 +23,20 @@ exports.CrudServer = class {
 
   initServer() {
     this.app = express();
+  }
+
+  async initDatabase() {
+    try {
+      await mongoose.connect(process.env.MONGODB_URL, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+      });
+      console.log('Database connection successful');
+        
+    } catch (err) {
+      console.log(err);
+      process.exit(1);
+    }
   }
 
   initMiddlewares() {
